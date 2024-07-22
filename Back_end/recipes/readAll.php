@@ -5,7 +5,9 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 require '../connection.php';
 
-$sql = "SELECT * FROM recipes";
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
+$sql = "SELECT * FROM recipes WHERE name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
 $result = $conn->query($sql);
 
 $recipes = [];
