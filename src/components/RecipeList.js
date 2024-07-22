@@ -6,7 +6,7 @@ const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost/recipe-app/backend/api/get_recipes.php')
+        axios.get('http://localhost/recipe-app/Back_end/recipes/readAll.php')
             .then(response => {
                 setRecipes(response.data);
                 gsap.fromTo('.recipe', { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.3 });
