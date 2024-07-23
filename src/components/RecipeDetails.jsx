@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { UserContext } from './UserContext';
+import { jsPDF } from 'jspdf';
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -12,7 +13,9 @@ const RecipeDetails = () => {
 
     useEffect(() => {
         axios.get(`http://localhost/recipe-app/Back_end/recipes/read.php?id=${id}`)
-            .then(response => setRecipe(response.data));
+            .then(response => {
+                setRecipe(response.data);
+            });
 
         axios.get(`http://localhost/recipe-app/Back_end/comments/read.php?recipe_id=${id}`)
             .then(response => setComments(response.data));
@@ -31,6 +34,19 @@ const RecipeDetails = () => {
                     alert('Error adding comment');
                 }
             });
+    };
+
+    const downloadRecipe = () => {
+        const doc = new jsPDF();
+        doc.setFontSize(18);
+        doc.text(recipe.name, 10, 10);
+        doc.setFontSize(12);
+        doc.text(`By: ${recipe.username}`, 10, 20);
+        doc.text(`Ingredients:`, 10, 30);
+        doc.text(recipe.ingredients, 10, 40);
+        doc.text(`Steps:`, 10, 50);
+        doc.text(recipe.steps, 10, 60);
+        doc.save(`${recipe.name}.pdf`);
     };
 
     return (
@@ -55,6 +71,7 @@ const RecipeDetails = () => {
                 ></textarea>
                 <button type="submit">Add Comment</button>
             </form>
+            <button onClick={downloadRecipe}>Download Recipe</button>
         </div>
     );
 };
