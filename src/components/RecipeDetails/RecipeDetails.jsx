@@ -32,6 +32,11 @@ const RecipeDetails = () => {
 
   const handleAddComment = (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error("You need to be logged in to add a comment.");
+      return;
+    }
+
     const commentData = {
       recipe_id: id,
       comment: newComment,
@@ -55,8 +60,11 @@ const RecipeDetails = () => {
           ]);
           setNewComment("");
         } else {
-          alert("Error adding comment");
+          toast.error("Error adding comment: " + response.data.message);
         }
+      })
+      .catch((error) => {
+        toast.error("Error adding comment: " + error.message);
       });
   };
 

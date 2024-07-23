@@ -71,7 +71,6 @@ const RecipeList = () => {
             <img src={recipe.image_url} alt={recipe.name} />
             <h3>{recipe.name}</h3>
             <p>By: {recipe.username}</p>
-            <p>Stars: {recipe.stars}</p>
             <button
               className="star-button"
               onClick={() => handleStar(recipe.id)}
