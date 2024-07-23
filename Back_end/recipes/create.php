@@ -5,25 +5,32 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 require '../connection.php';
 
-// Read JSON data from the request body
-$data = json_decode(file_get_contents('php://input'), true);
+$name = $_POST['name'];
+$ingredients = $_POST['ingredients'];
+$steps = $_POST['steps'];
+$user_id = $_POST['user_id'];
+$image_url = '';
 
-if (isset($data['name']) && isset($data['image_url']) && isset($data['ingredients']) && isset($data['steps']) && isset($data['user_id'])) {
-    $name = $data['name'];
-    $image_url = $data['image_url'];
-    $ingredients = $data['ingredients'];
-    $steps = $data['steps'];
-    $user_id = $data['user_id'];
+if (isset($_FILES['image'])) {
+    $image = $_FILES['image'];
+    $image_name = time() . '_' . $image['name'];
+    $target_dir = "../../uploads/";
+    $target_file = $target_dir . basename($image_name);
 
-    $sql = "INSERT INTO recipes (name, image_url, ingredients, steps, user_id) VALUES ('$name', '$image_url', '$ingredients', '$steps', '$user_id')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo json_encode(["success" => true]);
+    if (move_uploaded_file($image['tmp_name'], $target_file)) {
+        $image_url = 'http://localhost/recipe-app/uploads/' . $image_name;
     } else {
-        echo json_encode(["success" => false, "error" => $conn->error]);
+        echo json_encode(["success" => false, "message" => "Failed to upload image"]);
+        exit;
     }
+}
+
+$sql = "INSERT INTO recipes (name, image_url, ingredients, steps, user_id) VALUES ('$name', '$image_url', '$ingredients', '$steps', '$user_id')";
+
+if ($conn->query($sql) === TRUE) {
+    echo json_encode(["success" => true]);
 } else {
-    echo json_encode(["success" => false, "error" => "Invalid input"]);
+    echo json_encode(["success" => false, "error" => $conn->error]);
 }
 
 $conn->close();

@@ -1,0 +1,15 @@
+.starred-recipes .recipe .remove-button {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: #e74c3c; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .starred-recipes .recipe .remove-button:hover {
+    background-color: #c0392b; 
+  }
+  

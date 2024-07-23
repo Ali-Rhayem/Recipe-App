@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext';
+import './StarredRecipes.css'; // Import the CSS file
 
 const StarredRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -34,16 +35,16 @@ const StarredRecipes = () => {
     }
 
     return (
-        <div>
+        <div className="starred-recipes">
             <h2>Starred Recipes</h2>
             <div className="recipe-list">
                 {recipes.map(recipe => (
                     <div className="recipe" key={recipe.id}>
-                        <h3>{recipe.name}</h3>
                         <img src={recipe.image_url} alt={recipe.name} />
+                        <h3>{recipe.name}</h3>
                         <p>By: {recipe.username}</p>
                         <p>Stars: {recipe.stars}</p>
-                        <button onClick={() => removeStar(recipe.id)}>Remove</button>
+                        <button className="remove-button" onClick={() => removeStar(recipe.id)}>Remove</button>
                     </div>
                 ))}
             </div>

@@ -1,9 +1,28 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
 }
 
 header {
@@ -42,15 +61,8 @@ footer {
     color: #fff;
     padding: 1rem;
     text-align: center;
-    position: fixed;
     width: 100%;
-    bottom: 0;
-}
-
-main {
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
+    position: relative;
 }
 
 .search-form {
@@ -99,7 +111,7 @@ main {
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 4px;
-    width: calc(33% - 1rem);
+    height: 400px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
