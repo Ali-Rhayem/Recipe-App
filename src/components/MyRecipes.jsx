@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { showConfirmToast } from './ConfirmToast';
+import './toastStyles.css';
 
 const MyRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -16,17 +20,26 @@ const MyRecipes = () => {
     }, [user]);
 
     const handleDelete = (id) => {
-        axios.post('http://localhost/recipe-app/Back_end/recipes/delete.php', { id, user_id: user.id })
-            .then(response => {
-                if (response.data.success) {
-                    setRecipes(recipes.filter(recipe => recipe.id !== id));
-                } else {
-                    alert('Error deleting recipe: ' + response.data.error);
-                }
-            })
-            .catch(error => {
-                alert('Error deleting recipe: ' + error.message);
-            });
+        const onConfirm = () => {
+            axios.post('http://localhost/recipe-app/Back_end/recipes/delete.php', { id, user_id: user.id })
+                .then(response => {
+                    if (response.data.success) {
+                        setRecipes(recipes.filter(recipe => recipe.id !== id));
+                        toast.success('Recipe deleted successfully!');
+                    } else {
+                        toast.error('Error deleting recipe: ' + response.data.error);
+                    }
+                })
+                .catch(error => {
+                    toast.error('Error deleting recipe: ' + error.message);
+                });
+        };
+
+        const onCancel = () => {
+            toast.dismiss();
+        };
+
+        showConfirmToast(onConfirm, onCancel);
     };
 
     return (
@@ -43,6 +56,16 @@ const MyRecipes = () => {
                     </div>
                 ))}
             </div>
+            <ToastContainer
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };

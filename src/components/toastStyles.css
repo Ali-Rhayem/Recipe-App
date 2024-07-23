@@ -1,0 +1,64 @@
+.Toastify__toast-container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    position: fixed;
+    z-index: 9999;
+}
+
+.Toastify__toast--success {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.Toastify__toast--error {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.Toastify__toast-container--top-right {
+    top: 1em;
+    right: 1em;
+}
+
+.confirm-toast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.confirm-toast p {
+    margin-bottom: 10px;
+}
+
+.confirm-toast .buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-toast button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.confirm-toast button:nth-child(1) {
+    background-color: #d9534f;
+}
+
+.confirm-toast button:nth-child(1):hover {
+    background-color: #c9302c;
+}
+
+.confirm-toast button:nth-child(2) {
+    background-color: #6c757d;
+}
+
+.confirm-toast button:nth-child(2):hover {
+    background-color: #5a6268;
+}

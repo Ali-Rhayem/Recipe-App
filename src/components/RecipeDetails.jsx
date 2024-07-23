@@ -3,6 +3,10 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { jsPDF } from 'jspdf';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../toastStyles.css';
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -49,6 +53,18 @@ const RecipeDetails = () => {
         doc.save(`${recipe.name}.pdf`);
     };
 
+    const recipeUrl = window.location.href;
+
+    const notify = () => toast.success("Copied!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
     return (
         <div className="recipe-details">
             <h2>{recipe.name}</h2>
@@ -72,6 +88,10 @@ const RecipeDetails = () => {
                 <button type="submit">Add Comment</button>
             </form>
             <button onClick={downloadRecipe}>Download Recipe</button>
+            <CopyToClipboard text={recipeUrl} onCopy={notify}>
+                <button>Copy URL to the clipboard</button>
+            </CopyToClipboard>
+            <ToastContainer />
         </div>
     );
 };
