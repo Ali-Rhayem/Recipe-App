@@ -10,6 +10,8 @@ const Header = () => {
             <h1 className="header-title">Recipe App</h1>
             <div className="header-links">
                 <Link to="/">Home</Link>
+                <Link to="/Starred-recipe">Starred Recipes</Link>
+                <Link to="/my-recipes">My Recipes</Link>
                 <Link to="/add-recipe">Add Recipe</Link>
                 {user ? (
                     <>

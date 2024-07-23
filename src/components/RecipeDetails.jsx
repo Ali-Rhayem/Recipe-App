@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 const RecipeDetails = () => {
     const { id } = useParams();
     const [recipe, setRecipe] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         axios.get(`http://localhost/recipe-app/Back_end/recipes/read.php?id=${id}`)
@@ -18,12 +20,12 @@ const RecipeDetails = () => {
 
     const handleAddComment = (e) => {
         e.preventDefault();
-        const commentData = { recipe_id: id, comment: newComment };
+        const commentData = { recipe_id: id, comment: newComment, user_id: user.id };
 
         axios.post('http://localhost/recipe-app/Back_end/comments/create.php', commentData)
             .then(response => {
                 if (response.data.success) {
-                    setComments([...comments, { comment: newComment, created_at: new Date().toISOString() }]);
+                    setComments([...comments, { comment: newComment, created_at: new Date().toISOString(), username: user.username }]);
                     setNewComment('');
                 } else {
                     alert('Error adding comment');
@@ -41,7 +43,7 @@ const RecipeDetails = () => {
             <h3>Comments</h3>
             <ul>
                 {comments.map((comment, index) => (
-                    <li key={index}>{comment.comment} - {new Date(comment.created_at).toLocaleString()}</li>
+                    <li key={index}><strong>{comment.username}</strong>: {comment.comment} - {new Date(comment.created_at).toLocaleString()}</li>
                 ))}
             </ul>
             <form onSubmit={handleAddComment} className="comment-form">
