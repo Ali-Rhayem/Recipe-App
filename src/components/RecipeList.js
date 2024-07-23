@@ -7,34 +7,28 @@ const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
     const [search, setSearch] = useState('');
 
-    const fetchRecipes = (query = '') => {
-        axios.get(`http://localhost/recipe-app/Back_end/recipes/readAll.php?search=${query}`)
-            .then(response => {
-                setRecipes(response.data);
-                gsap.fromTo('.recipe', { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.3 });
-            });
-    };
-
     useEffect(() => {
-        fetchRecipes();
-    }, []);
+        const fetchRecipes = () => {
+            axios.get(`http://localhost/recipe-app/Back_end/recipes/readAll.php?search=${search}`)
+                .then(response => {
+                    setRecipes(response.data);
+                    gsap.fromTo('.recipe', { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.3 });
+                });
+        };
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        fetchRecipes(search);
-    };
+        fetchRecipes();
+    }, [search]);
 
     return (
         <div>
-            <form onSubmit={handleSearch} className="search-form">
+            <div className="search-form">
                 <input
                     type="text"
                     placeholder="Search for recipes..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button type="submit">Search</button>
-            </form>
+            </div>
             <div className="recipe-list">
                 {recipes.map(recipe => (
                     <div className="recipe" key={recipe.id}>

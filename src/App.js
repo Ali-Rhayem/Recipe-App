@@ -13,7 +13,6 @@ const App = () => {
         <Router>
             <div className="App">
                 <Header />
-                <Navbar />
                 <main>
                     <Routes>
                         <Route path="/" element={<RecipeList />} />
