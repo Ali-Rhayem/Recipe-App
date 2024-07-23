@@ -7,14 +7,14 @@ const Header = () => {
 
     return (
         <header>
-            <h1>Recipe App</h1>
+            <h1 className="header-title">Recipe App</h1>
             <div className="header-links">
                 <Link to="/">Home</Link>
                 <Link to="/add-recipe">Add Recipe</Link>
                 {user ? (
                     <>
                         <span>Welcome, {user.username}</span>
-                        <button onClick={logout}>Logout</button>
+                        <Link to="/" onClick={logout}>Logout</Link>
                     </>
                 ) : (
                     <>

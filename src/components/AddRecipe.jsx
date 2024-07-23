@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { UserContext } from './UserContext';
 
 const AddRecipe = () => {
     const [name, setName] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [steps, setSteps] = useState('');
+    const { user } = useContext(UserContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const recipe = { name, image_url: imageUrl, ingredients, steps };
-    
+        const recipe = { name, image_url: imageUrl, ingredients, steps, user_id: user.id };
+
         axios.post('http://localhost/recipe-app/Back_end/recipes/create.php', recipe)
             .then(response => {
                 console.log(response.data); // Log the full response data
@@ -25,7 +27,6 @@ const AddRecipe = () => {
                 alert('Error adding recipe: ' + error.message);
             });
     };
-    
 
     return (
         <form onSubmit={handleSubmit}>

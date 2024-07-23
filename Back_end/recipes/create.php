@@ -8,14 +8,14 @@ require '../connection.php';
 // Read JSON data from the request body
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Validate and assign the data
-if (isset($data['name']) && isset($data['image_url']) && isset($data['ingredients']) && isset($data['steps'])) {
+if (isset($data['name']) && isset($data['image_url']) && isset($data['ingredients']) && isset($data['steps']) && isset($data['user_id'])) {
     $name = $data['name'];
     $image_url = $data['image_url'];
     $ingredients = $data['ingredients'];
     $steps = $data['steps'];
+    $user_id = $data['user_id'];
 
-    $sql = "INSERT INTO recipes (name, image_url, ingredients, steps) VALUES ('$name', '$image_url', '$ingredients', '$steps')";
+    $sql = "INSERT INTO recipes (name, image_url, ingredients, steps, user_id) VALUES ('$name', '$image_url', '$ingredients', '$steps', '$user_id')";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(["success" => true]);

@@ -12,6 +12,7 @@ const RecipeList = () => {
             axios.get(`http://localhost/recipe-app/Back_end/recipes/readAll.php?search=${search}`)
                 .then(response => {
                     setRecipes(response.data);
+                    console.log(response.data);
                     gsap.fromTo('.recipe', { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.3 });
                 });
         };
@@ -34,6 +35,7 @@ const RecipeList = () => {
                     <div className="recipe" key={recipe.id}>
                         <h3>{recipe.name}</h3>
                         <img src={recipe.image_url} alt={recipe.name} />
+                        <p>By: {recipe.username}</p>
                         <p>Stars: {recipe.stars}</p>
                         <Link to={`/recipe/${recipe.id}`}>
                             <button>View Details</button>

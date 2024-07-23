@@ -35,6 +35,7 @@ const RecipeDetails = () => {
         <div className="recipe-details">
             <h2>{recipe.name}</h2>
             <img src={recipe.image_url} alt={recipe.name} />
+            <p><strong>By:</strong> {recipe.username}</p>
             <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
             <p><strong>Steps:</strong> {recipe.steps}</p>
             <h3>Comments</h3>
