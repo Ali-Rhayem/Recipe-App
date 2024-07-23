@@ -32,6 +32,11 @@ const RecipeList = () => {
   }, [search]);
 
   const handleStar = (id) => {
+    if (!user) {
+      toast.error("You need to be logged in to star a recipe.");
+      return;
+    }
+
     axios
       .post("http://localhost/recipe-app/Back_end/recipes/starRecipe.php", {
         recipe_id: id,

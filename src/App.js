@@ -11,7 +11,7 @@ import MyRecipes from './components/MyRecipes/MyRecipes';
 import { UserProvider } from './components/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import './styles.css';
-import StarredRecipes from './components/StarredRecipes';
+import StarredRecipes from './components/StarredRecipe/StarredRecipes';
 
 const App = () => {
     return (
@@ -24,7 +24,7 @@ const App = () => {
                             <Route path="/" element={<RecipeList />} />
                             <Route path="/add-recipe" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
                             <Route path="/Starred-recipe" element={<ProtectedRoute><StarredRecipes /></ProtectedRoute>} />
-                            <Route path="/recipe/:id" element={<RecipeDetails />} />
+                            <Route path="/recipe/:id" element={<ProtectedRoute><RecipeDetails /></ProtectedRoute>} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/my-recipes" element={<ProtectedRoute><MyRecipes /></ProtectedRoute>} />

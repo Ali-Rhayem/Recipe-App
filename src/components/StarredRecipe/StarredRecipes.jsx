@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import './StarredRecipes.css'; // Import the CSS file
 
 const StarredRecipes = () => {
